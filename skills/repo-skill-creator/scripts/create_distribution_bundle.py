@@ -17,8 +17,10 @@ def read_repo_context(skill_dir: Path) -> dict[str, str]:
         return {}
     content = path.read_text(encoding="utf-8")
     result: dict[str, str] = {}
+    title_match = re.search(r"^# Repo Context: (.+)$", content, re.MULTILINE)
+    if title_match:
+        result["repo_name"] = title_match.group(1).strip()
     for key, pattern in (
-        ("repo_root", r"- Root: `([^`]+)`"),
         ("archetype", r"- Suggested skill archetype: `([^`]+)`"),
         ("reason", r"- Why: (.+)"),
     ):
@@ -56,7 +58,7 @@ def build_readme(skill_name: str, description: str, interface: dict[str, str], r
             [
                 "## Context",
                 "",
-                f"- Repo root: `{repo_context.get('repo_root', 'unknown')}`",
+                f"- Repo: `{repo_context.get('repo_name', 'unknown')}`",
                 f"- Suggested archetype: `{repo_context.get('archetype', 'unknown')}`",
                 f"- Why: {repo_context.get('reason', 'No repo context summary found.')}",
                 "",

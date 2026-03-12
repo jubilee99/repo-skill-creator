@@ -1,6 +1,6 @@
 ---
 name: repo-skill-creator
-description: Create and refine reusable Codex skills from an existing repository. Use when the user asks to turn repo context into a skill, analyze AGENTS.md or WORKFLOW.md before writing a skill, scaffold a new skill under /home/r.doi/.codex/skills, or says things like "this repo no skill o tsukutte", "repo kara skill ka shite", "skill creator o tsukutte", "build a skill for this repo", or "make this workflow reusable across repos".
+description: Create and refine reusable Codex skills from an existing repository. Use when the user asks to turn repo context into a skill, analyze AGENTS.md or WORKFLOW.md before writing a skill, scaffold a new skill from repo signals, or says things like "this repo no skill o tsukutte", "repo kara skill ka shite", "skill creator o tsukutte", "build a skill for this repo", or "make this workflow reusable across repos".
 ---
 
 # Repo Skill Creator
@@ -15,13 +15,13 @@ Prefer deterministic helpers over long prose. Keep the main instructions lean, m
 
 1. Run `python3 scripts/analyze_repo.py /path/to/repo` to inspect manifests, docs, commands, and likely skill patterns.
 2. Read `references/frontmatter-patterns.md` if the scope or trigger phrases are still vague.
-3. Run `python3 scripts/init_repo_skill.py /path/to/repo <skill-name>` to scaffold a draft skill in `/home/r.doi/.codex/skills`.
+3. Run `python3 scripts/init_repo_skill.py /path/to/repo <skill-name>` to scaffold a draft skill in the default Codex skills directory or an explicit `--output-path`.
 4. Replace generic draft text with repo-specific commands, failure handling, examples, and validation steps.
 5. Run both:
-   - `python3 /home/r.doi/.codex/skills/.system/skill-creator/scripts/quick_validate.py <new-skill-path>`
+   - `python3 /path/to/quick_validate.py <new-skill-path>`
    - `python3 scripts/review_skill.py <new-skill-path>`
 6. Generate a distribution bundle when the skill is ready to share:
-   - `python3 scripts/create_distribution_bundle.py <new-skill-path> --output-dir /tmp/<bundle-name>`
+   - `python3 scripts/create_distribution_bundle.py <new-skill-path> --output-dir /path/to/<bundle-name>`
 
 ## Fundamentals
 
@@ -51,7 +51,7 @@ Prefer deterministic helpers over long prose. Keep the main instructions lean, m
 - Run `scripts/analyze_repo.py` against the repo root or a subdirectory inside the repo.
 - Read the generated doc summary before making assumptions about stack, commands, or architecture.
 - If the repo has `AGENTS.md`, `WORKFLOW.md`, `README.md`, or design docs, treat them as primary signals for the skill draft.
-- Read `references/environment-paths.md` when deciding whether the resulting skill should live globally in `/home/r.doi/.codex/skills` or alongside the repo for versioning.
+- Read `references/environment-paths.md` when deciding whether the resulting skill should live in the user's Codex skills directory or alongside the repo for versioning.
 
 ### 3. Plan reusable contents
 
@@ -86,7 +86,7 @@ Prefer deterministic helpers over long prose. Keep the main instructions lean, m
 ### 6. Validate the minimum structure
 
 - Run the system validator:
-  - `python3 /home/r.doi/.codex/skills/.system/skill-creator/scripts/quick_validate.py <skill-path>`
+  - `python3 /path/to/quick_validate.py <skill-path>`
 - Run the richer reviewer:
   - `python3 scripts/review_skill.py <skill-path>`
 
@@ -108,7 +108,7 @@ Prefer deterministic helpers over long prose. Keep the main instructions lean, m
 ### 8. Package the skill for others
 
 - Generate a shareable bundle outside the skill folder:
-  - `python3 scripts/create_distribution_bundle.py <skill-path> --output-dir /tmp/<bundle-name>`
+  - `python3 scripts/create_distribution_bundle.py <skill-path> --output-dir /path/to/<bundle-name>`
 - Keep human-facing docs like README and INSTALL guides outside the skill folder itself.
 - Read `references/distribution-and-sharing.md` before publishing or handing the skill to teammates.
 
@@ -137,7 +137,7 @@ Prefer deterministic helpers over long prose. Keep the main instructions lean, m
 - `references/testing-and-iteration.md`: Guidance on trigger tests, functional tests, and iteration signals.
 - `references/distribution-and-sharing.md`: Packaging and sharing guidance for finished skills.
 - `references/patterns-and-troubleshooting.md`: Common workflow patterns and fixes for bad skill behavior.
-- `references/environment-paths.md`: Paths, defaults, and local environment notes for this machine.
+- `references/environment-paths.md`: Paths, defaults, and portability notes for different Codex environments.
 
 ## Output Standard
 

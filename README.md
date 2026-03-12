@@ -42,7 +42,7 @@ repo-skill-creator/
 スキルフォルダを Codex の skills ディレクトリへコピーします。
 
 ```bash
-cp -R skills/repo-skill-creator ~/.codex/skills/
+cp -R skills/repo-skill-creator "${CODEX_HOME:-$HOME/.codex}/skills/"
 ```
 
 インストール前に内容を確認するなら、まず次を読むのがわかりやすいです。

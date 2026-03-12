@@ -32,7 +32,7 @@ Use this checklist before calling a repo-derived skill "done".
 ## Validation
 
 - Run the system validator:
-  - `python3 /home/r.doi/.codex/skills/.system/skill-creator/scripts/quick_validate.py <skill-path>`
+  - `python3 /path/to/quick_validate.py <skill-path>`
 - Test obvious trigger requests.
 - Test paraphrased trigger requests.
 - Test unrelated requests that should not trigger.

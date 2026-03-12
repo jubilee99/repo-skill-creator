@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import textwrap
@@ -14,8 +15,45 @@ from typing import Any
 
 import yaml
 
-SYSTEM_SKILL_ROOT = Path("/home/r.doi/.codex/skills/.system/skill-creator")
-DEFAULT_OUTPUT_PATH = Path("/home/r.doi/.codex/skills")
+
+def _path_from_env(name: str) -> Path | None:
+    raw_value = os.environ.get(name)
+    if not raw_value:
+        return None
+    return Path(raw_value).expanduser()
+
+
+def resolve_default_output_path() -> Path:
+    override = _path_from_env("CODEX_SKILLS_DIR")
+    if override:
+        return override
+
+    codex_home = _path_from_env("CODEX_HOME")
+    if codex_home:
+        return codex_home / "skills"
+
+    default_home = Path.home() / ".codex"
+    return default_home / "skills"
+
+
+def resolve_system_skill_root(default_output_path: Path) -> Path:
+    override = _path_from_env("SKILL_CREATOR_SYSTEM_PATH")
+    if override:
+        return override
+
+    installed_candidate = default_output_path / ".system" / "skill-creator"
+    if installed_candidate.exists():
+        return installed_candidate
+
+    local_package_candidate = Path(__file__).resolve().parents[2] / ".system" / "skill-creator"
+    if local_package_candidate.exists():
+        return local_package_candidate
+
+    return installed_candidate
+
+
+DEFAULT_OUTPUT_PATH = resolve_default_output_path()
+SYSTEM_SKILL_ROOT = resolve_system_skill_root(DEFAULT_OUTPUT_PATH)
 DEFAULT_RESOURCES = ["scripts", "references"]
 MAX_CONTEXT_FILES = 8
 MAX_HEADINGS_PER_DOC = 6
@@ -524,7 +562,7 @@ def analysis_to_markdown(analysis: dict[str, Any]) -> str:
     lines = [
         f"# Repo Context: {analysis['repo_name']}",
         "",
-        f"- Root: `{analysis['repo_root']}`",
+        f"- Repo: `{analysis['repo_name']}`",
         f"- Suggested skill archetype: `{analysis['archetype']}`",
         f"- Why: {analysis['archetype_reason']}",
         "",

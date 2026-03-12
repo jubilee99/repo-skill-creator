@@ -11,7 +11,7 @@ contain human-facing documentation without polluting the skill folder.
 - Keep the skill contents in `skills/repo-skill-creator/`.
 - Prefer editing the packaged skill directly in this repo once it becomes the public source.
 - Validate with:
-  - `python3 /home/r.doi/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/repo-skill-creator`
+  - `python3 /path/to/quick_validate.py skills/repo-skill-creator`
   - `python3 skills/repo-skill-creator/scripts/review_skill.py skills/repo-skill-creator`
 
 ## 3. GUIDELINES

@@ -28,9 +28,16 @@ def run_init_skill(
     resources: list[str],
     interface_values: dict[str, str],
 ) -> None:
+    init_skill_script = SYSTEM_SKILL_ROOT / "scripts" / "init_skill.py"
+    if not init_skill_script.exists():
+        raise SystemExit(
+            "Could not find the system skill-creator. Install it under your Codex skills root "
+            "or set SKILL_CREATOR_SYSTEM_PATH."
+        )
+
     command = [
         "python3",
-        str(SYSTEM_SKILL_ROOT / "scripts" / "init_skill.py"),
+        str(init_skill_script),
         skill_name,
         "--path",
         str(output_path),
