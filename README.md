@@ -17,8 +17,9 @@
 - trigger、機能、性能の観点を含むテスト計画を生成する
 - zip とインストール説明を含む配布 bundle を作成する
 
-現在の実装は、`/home/r.doi/.codex/skills` と `/volume1/docker` を使う
-ローカル環境の運用前提に合わせて調整しています。
+現在の実装は、Codex のローカル skill ディレクトリに配置して使う運用を
+前提にしています。必要に応じてインストール先や補助スクリプトの呼び出し
+パスは各環境に合わせて調整してください。
 
 ## リポジトリ構成
 
@@ -54,7 +55,7 @@ cp -R skills/repo-skill-creator ~/.codex/skills/
 基本バリデーター:
 
 ```bash
-python3 /home/r.doi/.codex/skills/.system/skill-creator/scripts/quick_validate.py \
+python3 /path/to/quick_validate.py \
   skills/repo-skill-creator
 ```
 
