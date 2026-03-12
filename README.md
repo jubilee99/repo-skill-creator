@@ -1,26 +1,26 @@
 # Repo Skill Creator
 
-An opinionated Codex skill pack for turning an existing repository into a reusable
-skill.
+既存のリポジトリを、再利用可能な Codex スキルへ変換するための実践的な
+スキルパックです。
 
-This repo packages the `repo-skill-creator` skill as a shareable GitHub repository.
-The skill itself lives under `skills/repo-skill-creator/` so the repository can
-contain human-facing docs without polluting the skill folder.
+このリポジトリは、`repo-skill-creator` スキルを GitHub 上で共有できる形に
+パッケージしたものです。実際のスキル本体は `skills/repo-skill-creator/`
+配下に置き、人間向けの説明資料はリポジトリ直下に分離しています。
 
-## What It Does
+## できること
 
-The packaged skill helps Codex:
+このスキルを使うと、Codex は次の作業を進めやすくなります。
 
-- analyze a real repository before writing a skill
-- scaffold a repo-derived skill with repo context
-- review skill quality beyond basic frontmatter validation
-- generate test plans for trigger, functional, and performance checks
-- create a distribution bundle with a zip plus human-facing install docs
+- 実在するリポジトリを調査してからスキル設計に入る
+- repo 固有の文脈を含むスキルのひな形を生成する
+- frontmatter の基本検証だけで終わらない品質レビューを行う
+- trigger、機能、性能の観点を含むテスト計画を生成する
+- zip とインストール説明を含む配布 bundle を作成する
 
-The current implementation is tailored to the local environment conventions used in
-`/home/r.doi/.codex/skills` and `/volume1/docker`.
+現在の実装は、`/home/r.doi/.codex/skills` と `/volume1/docker` を使う
+ローカル環境の運用前提に合わせて調整しています。
 
-## Repo Layout
+## リポジトリ構成
 
 ```text
 repo-skill-creator/
@@ -36,49 +36,49 @@ repo-skill-creator/
         └── references/
 ```
 
-## Install
+## インストール
 
-Copy the skill folder into your Codex skills directory:
+スキルフォルダを Codex の skills ディレクトリへコピーします。
 
 ```bash
 cp -R skills/repo-skill-creator ~/.codex/skills/
 ```
 
-If you want to inspect the skill before installing, start with:
+インストール前に内容を確認するなら、まず次を読むのがわかりやすいです。
 
 - `skills/repo-skill-creator/SKILL.md`
 - `skills/repo-skill-creator/references/skill-creation-checklist.md`
 
-## Validate
+## 検証
 
-Basic validator:
+基本バリデーター:
 
 ```bash
 python3 /home/r.doi/.codex/skills/.system/skill-creator/scripts/quick_validate.py \
   skills/repo-skill-creator
 ```
 
-Richer review:
+詳細レビュー:
 
 ```bash
 python3 skills/repo-skill-creator/scripts/review_skill.py skills/repo-skill-creator
 ```
 
-## Example Usage
+## 使用例
 
-Analyze a repo:
+リポジトリを解析する:
 
 ```bash
 python3 skills/repo-skill-creator/scripts/analyze_repo.py /path/to/repo
 ```
 
-Scaffold a repo-derived skill:
+repo 由来のスキルをひな形生成する:
 
 ```bash
 python3 skills/repo-skill-creator/scripts/init_repo_skill.py /path/to/repo my-skill
 ```
 
-Create a distribution bundle for a finished skill:
+完成したスキルの配布 bundle を作成する:
 
 ```bash
 python3 skills/repo-skill-creator/scripts/create_distribution_bundle.py \
@@ -86,6 +86,6 @@ python3 skills/repo-skill-creator/scripts/create_distribution_bundle.py \
   --output-dir /tmp/repo-skill-creator-dist
 ```
 
-## License
+## ライセンス
 
 MIT
