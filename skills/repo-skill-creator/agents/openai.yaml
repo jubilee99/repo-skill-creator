@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repo Skill Creator"
+  short_description: "Turn a repo into a reusable Codex skill"
+  default_prompt: "Use $repo-skill-creator to analyze this repository and scaffold a reusable Codex skill with repo-specific instructions and validation steps."
